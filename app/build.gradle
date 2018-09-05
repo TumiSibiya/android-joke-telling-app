@@ -31,6 +31,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    // Specifies one flavor dimension. @see: "https://developer.android.com/studio/build/build-variants?utm_source=android-studio#product-flavors"
+    flavorDimensions "default"
+    productFlavors {
+        free {
+            flavorDimensions "default"
+            applicationId "com.udacity.gradle.builditbigger.free"
+        }
+        paid {
+            flavorDimensions "default"
+            applicationId "com.udacity.gradle.builditbigger.paid"
+        }
+    }
     dataBinding.enabled = true
 }
 
@@ -38,7 +50,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     endpointsServer project(path: ':backend', configuration: 'endpoints')
     implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation('com.google.android.gms:play-services-ads:15.0.1', {
+    // Declare the dependency for the ads only for the 'free' flavor
+    freeImplementation('com.google.android.gms:play-services-ads:15.0.1', {
         exclude group: 'com.android.support'
     })
     implementation 'com.google.api-client:google-api-client:1.23.0'
