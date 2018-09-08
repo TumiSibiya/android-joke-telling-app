@@ -31,9 +31,9 @@ public class JokeUtils {
                 "gave away one quarter, and another quarter, and then another quarter," +
                 " how much would you have left?\nA million dollars minus 75 cents.");
         // Reference: https://www.quickfunnyjokes.com/math.html
-        add("What is a bird\'s favorite type of math? \\nOwl-gebra");
+        add("What is a bird\'s favorite type of math?\nOwl-gebra");
         // Reference: https://thoughtcatalog.com/january-nelson/2018/04/39-math-jokes-and-puns-that-will-make-you-smile-easy-as-pi/
-        add("What did the zero say to the eight?\\nNice belt!");
+        add("What did the zero say to the eight?\nNice belt!");
         // Reference: https://unijokes.com/
         add("\"If you had a dollar,\" quizzed the teacher, \"and you asked your father " +
                 "for another dollar and fifty cents, how much money would you have?\"\n" +
@@ -99,6 +99,20 @@ public class JokeUtils {
         // Reference: https://unijokes.com/
         add("Yo Mama is so fat, if she buys a fur coat, a whole species will become" +
                 " extinct.");
+        // Reference: http://www.kidzjokes.com/milkshake-joke/
+        add("Where do milkshakes come from?\nNervous cows.");
+        // Reference: http://www.kidzjokes.com/10-cows-joke-funny-cows-joke/
+        add("If you had ten cows and five goats what would you have?\nA whole lot of milk!");
+        // Reference: http://www.kidzjokes.com/farm-joke-two-pigs-and-chicken-joke/
+        add("What do you have when two pigs and a chicken get together for breakfast?\n" +
+                "Sausage, ham and eggs!");
+        // Reference: http://www.kidzjokes.com/dog-joke-city/
+        add("What kind of dog lives in the city?\nA New Yorkie!");
+        // Reference: http://www.kidzjokes.com/cow-joke-cross-cow-and-smurf/
+        add("What do you get when you cross a cow with a smurf?\nBlue cheese!");
+        // Reference: http://www.kidzjokes.com/beetle-and-lamb-joke-for-kids/
+        add("What do you get when you cross a lamb, hummingbird and a beetle?\n" +
+                "A bah-humbug!");
     }};
 
     private static final List<String> marriageJokes = new ArrayList<String>() {{
