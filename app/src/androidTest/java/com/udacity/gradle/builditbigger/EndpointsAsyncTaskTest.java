@@ -3,12 +3,14 @@ package com.udacity.gradle.builditbigger;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.util.Pair;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -32,8 +34,8 @@ public class EndpointsAsyncTaskTest {
     private static final int COUNT = 1;
     /** The waiting time */
     private static final int TIME_OUT = 10;
-    /** The joke string that EndpointAsyncTask retrieves */
-    private String mJoke = null;
+    /** The list of jokes that EndpointAsyncTask retrieves */
+    private List<String> mJokes = null;
     /** The Exception to handle errors */
     private Exception mException = null;
 
@@ -60,14 +62,14 @@ public class EndpointsAsyncTaskTest {
         task.setListener(new EndpointsAsyncTask.EndpointsAsyncTaskListener() {
             //
             @Override
-            public void onComplete(String jokeResult, Exception e) {
-                mJoke = jokeResult;
+            public void onComplete(List<String> jokeResult, Exception e) {
+                mJokes = jokeResult;
                 mException = e;
                 // Decrement the count of the latch, releasing all waiting threads if the count
                 // reaches zero
                 mSignal.countDown();
             }
-        }).execute(InstrumentationRegistry.getTargetContext());
+        }).execute(new Pair<>(InstrumentationRegistry.getTargetContext(), "animal"));
 
         // Causes the current thread to wait until the latch has counted down to zero,
         // unless the thread is interrupted, or the specified waiting time elapses.
@@ -76,12 +78,12 @@ public class EndpointsAsyncTaskTest {
         // Verify that the exception is null
         assertNull(mException);
         // Verify that the received joke string is not null
-        assertTrue(mJoke, mJoke != null);
+        assertTrue(mJokes.get(0), mJokes.get(0) != null);
         // Verify that the received joke string is not empty
-        assertTrue(mJoke, !mJoke.isEmpty());
+        assertTrue(mJokes.get(0), !mJokes.get(0).isEmpty());
 
         // Check the joke string is displayed in the TextView
-        onView(withId(R.id.tv_joke_display))
+        onView(withId(R.id.tv_joke))
                 .check(matches(isDisplayed()));
     }
 

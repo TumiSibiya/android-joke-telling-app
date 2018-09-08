@@ -1,8 +1,18 @@
 package com.example.android.jokeprovider;
 
+import java.util.List;
+
+/**
+ * The JokeProvider is responsible for providing jokes.
+ */
 public class JokeProvider {
 
-    public String getJoke() {
-        return "This is a joke from a Java Library";
+    /**
+     * Returns the list of jokes
+     *
+     * @param category The joke category
+     */
+    public List<String> getJokes(String category) {
+        return JokeUtils.getJokes(category);
     }
 }

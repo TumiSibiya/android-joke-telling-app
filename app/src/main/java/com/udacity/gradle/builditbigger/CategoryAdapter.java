@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.udacity.gradle.builditbigger.databinding.CategoryListItemBinding;
@@ -18,11 +19,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     /** Member variable for the list of categories */
     private List<Category> mCategoryList;
 
+    /** An on-click handler */
+    private final CategoryAdapterOnClickHandler mOnClickHandler;
+
+    public interface CategoryAdapterOnClickHandler {
+        void onItemClick(int position);
+    }
+
     /**
      * Constructor for CategoryAdapter.
      */
-    public CategoryAdapter(List<Category> categoryList) {
+    public CategoryAdapter(List<Category> categoryList, CategoryAdapterOnClickHandler onClickHandler) {
         mCategoryList = categoryList;
+        mOnClickHandler = onClickHandler;
     }
 
     /**
@@ -64,7 +73,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     /**
      * Cache the children views for a category list item.
      */
-    public class CategoryViewHolder extends RecyclerView.ViewHolder {
+    public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         /** This field is used for data binding */
         private CategoryListItemBinding mCategoryBinding;
@@ -77,6 +86,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         public CategoryViewHolder(CategoryListItemBinding categoryListItemBinding) {
             super(categoryListItemBinding.getRoot());
             mCategoryBinding = categoryListItemBinding;
+            itemView.setOnClickListener(this);
         }
 
         /**
@@ -88,6 +98,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         void bind(Category category) {
             mCategoryBinding.ivCategory.setImageResource(category.getImageId());
             mCategoryBinding.tvCategory.setText(category.getCategoryName());
+        }
+
+        @Override
+        public void onClick(View v) {
+            int adapterPosition = getAdapterPosition();
+            mOnClickHandler.onItemClick(adapterPosition);
         }
     }
 }

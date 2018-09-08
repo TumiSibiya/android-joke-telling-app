@@ -5,6 +5,8 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 
+import java.util.List;
+
 import javax.inject.Named;
 
 /** An endpoint class we are exposing */
@@ -29,11 +31,12 @@ public class MyEndpoint {
     }
 
     @ApiMethod(name = "pullJokes")
-    public MyBean pullJokes() {
+    public MyBean pullJokes(@Named("category") String category) {
         JokeProvider jokeProvider = new JokeProvider();
-        String joke = jokeProvider.getJoke();
+        List<String> jokes = jokeProvider.getJokes(category);
         MyBean response = new MyBean();
-        response.setData(joke);
+        response.setListData(jokes);
+
         return response;
     }
 

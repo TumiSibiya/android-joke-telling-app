@@ -12,7 +12,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="tellJoke"
             app:cardCornerRadius="3dp"
             app:cardPreventCornerOverlap="true">
 

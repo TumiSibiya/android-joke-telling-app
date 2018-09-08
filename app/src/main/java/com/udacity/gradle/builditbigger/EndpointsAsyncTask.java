@@ -3,6 +3,8 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.util.Pair;
+import android.util.Log;
 
 import com.example.android.jokedisplay.JokeActivity;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -12,8 +14,10 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
+public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, List<String>> {
 
     private static MyApi myApiService = null;
     private Context mContext;
@@ -28,7 +32,7 @@ public class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
     private EndpointsAsyncTaskListener mListener = null;
 
     public interface EndpointsAsyncTaskListener {
-        void onComplete(String jokeResult, Exception e);
+        void onComplete(List<String> jokeResult, Exception e);
     }
 
     /**
@@ -40,7 +44,7 @@ public class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Context... params) {
+    protected List<String> doInBackground(Pair<Context, String>... params) {
         if (myApiService == null) { // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
@@ -59,20 +63,22 @@ public class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
             myApiService = builder.build();
         }
 
-        mContext = params[0];
+        mContext = params[0].first;
+        String category = params[0].second;
 
         try {
-            return myApiService.pullJokes().execute().getData();
+            return myApiService.pullJokes(category).execute().getListData();
         } catch (IOException e) {
             mException = e;
-            return e.getMessage();
+            Log.e("EndpointsAsyncTask", e.getMessage());
+            return null;
         }
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(List<String> result) {
         Intent intent = new Intent(mContext, JokeActivity.class);
-        intent.putExtra(JokeActivity.JOKE_KEY, result);
+        intent.putStringArrayListExtra(JokeActivity.JOKE_KEY, (ArrayList<String>) result);
         mContext.startActivity(intent);
 
         if (mListener != null) {
