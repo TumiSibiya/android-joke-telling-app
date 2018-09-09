@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.android.jokedisplay.JokeActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -177,6 +179,20 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
     public void onTaskComplete(List<String> jokeResult) {
         mFragmentMainBinding.pbLoadingIndicator.setVisibility(View.GONE);
         mFragmentMainBinding.rvCategory.setVisibility(View.VISIBLE);
+
+        // Start a JokeActivity to display a joke
+        startJokeActivity(jokeResult);
+    }
+
+    /**
+     * Start a JokeActivity to display a joke.
+     *
+     * @param result The result returned by doInBackground method
+     */
+    private void startJokeActivity(List<String> result) {
+        Intent intent = new Intent(this.getActivity(), JokeActivity.class);
+        intent.putStringArrayListExtra(JokeActivity.JOKE_KEY, (ArrayList<String>) result);
+        startActivity(intent);
     }
 
 }

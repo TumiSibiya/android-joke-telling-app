@@ -1,11 +1,9 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.util.Pair;
 
-import com.example.android.jokedisplay.JokeActivity;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -13,7 +11,6 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
@@ -104,10 +101,6 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, L
 
     @Override
     protected void onPostExecute(List<String> result) {
-        Intent intent = new Intent(mContext, JokeActivity.class);
-        intent.putStringArrayListExtra(JokeActivity.JOKE_KEY, (ArrayList<String>) result);
-        mContext.startActivity(intent);
-
         if (mListener != null) {
             // Trigger the callback onComplete after the background computation finishes
             mListener.onComplete(result, mException);
