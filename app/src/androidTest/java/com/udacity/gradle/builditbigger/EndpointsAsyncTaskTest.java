@@ -38,6 +38,7 @@ public class EndpointsAsyncTaskTest {
     private List<String> mJokes = null;
     /** The Exception to handle errors */
     private Exception mException = null;
+    private EndpointsAsyncTask.OnTaskComplete mCallback = null;
 
     /**
      * A synchronization aid that allows one or more threads to wait until a set of operations being
@@ -58,7 +59,7 @@ public class EndpointsAsyncTaskTest {
     @Test
     public void checkNonEmptyString() throws InterruptedException {
         // Create an EndpointsAsyncTask
-        EndpointsAsyncTask task = new EndpointsAsyncTask();
+        EndpointsAsyncTask task = new EndpointsAsyncTask(mCallback);
         task.setListener(new EndpointsAsyncTask.EndpointsAsyncTaskListener() {
             //
             @Override

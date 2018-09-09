@@ -25,7 +25,8 @@ import timber.log.Timber;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements CategoryAdapter.CategoryAdapterOnClickHandler {
+public class MainActivityFragment extends Fragment implements CategoryAdapter.CategoryAdapterOnClickHandler,
+        EndpointsAsyncTask.OnTaskComplete {
 
     /** Member variable for the list of categories */
     private List<Category> mCategoryList;
@@ -153,6 +154,29 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
             mInterstitialAd.loadAd(new AdRequest.Builder().build());
         }
         // Kick off a task to retrieve a joke
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(getActivity(), mCategory));
+        new EndpointsAsyncTask(this).execute(new Pair<Context, String>(getActivity(), mCategory));
     }
+
+    /**
+     * Define the behavior for onPreTask.
+     * Show the loading indicator while the joke is being retrieved.
+     */
+    @Override
+    public void onPreTask() {
+        mFragmentMainBinding.pbLoadingIndicator.setVisibility(View.VISIBLE);
+        mFragmentMainBinding.rvCategory.setVisibility(View.GONE);
+    }
+
+    /**
+     * Define the behavior for onTaskComplete.
+     * Hide the loading indicator when a joke is ready.
+     *
+     * @param jokeResult The result returned by doInBackground method
+     */
+    @Override
+    public void onTaskComplete(List<String> jokeResult) {
+        mFragmentMainBinding.pbLoadingIndicator.setVisibility(View.GONE);
+        mFragmentMainBinding.rvCategory.setVisibility(View.VISIBLE);
+    }
+
 }

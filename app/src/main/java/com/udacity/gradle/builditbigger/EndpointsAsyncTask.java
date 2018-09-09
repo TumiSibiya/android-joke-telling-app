@@ -37,11 +37,37 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, L
     }
 
     /**
+     * Define a new interface OnTaskComplete that triggers a Callback.
+     *
+     * Reference: @see "https://discussions.udacity.com/t/unable-to-start-activity-componentinfo-free-flavor/243702/10"
+     * @see "https://discussions.udacity.com/t/waiting-for-the-task-to-get-the-joke-before-launching-android-library-activity-in-build-it-bigger/166488"
+     * @see "https://stackoverflow.com/questions/9963691/android-asynctask-sending-callbacks-to-ui"
+     */
+    private OnTaskComplete mCallback;
+
+    public interface OnTaskComplete {
+        void onTaskComplete(List<String> jokeResult);
+        void onPreTask();
+    }
+
+    public EndpointsAsyncTask(OnTaskComplete callback) {
+        mCallback = callback;
+    }
+
+    /**
      * Sets the EndpointsAsyncTaskListener and returns it.
      */
     public EndpointsAsyncTask setListener(EndpointsAsyncTaskListener listener) {
         this.mListener = listener;
         return this;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        if (mCallback != null) {
+            // Trigger the callback onPreTask to show a loading indicator
+            mCallback.onPreTask();
+        }
     }
 
     @Override
@@ -85,6 +111,10 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, L
         if (mListener != null) {
             // Trigger the callback onComplete after the background computation finishes
             mListener.onComplete(result, mException);
+        }
+        // Trigger the callback onTaskComplete
+        if (mCallback != null) {
+            mCallback.onTaskComplete(result);
         }
     }
 
