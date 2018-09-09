@@ -85,10 +85,10 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
      */
     private void addCategory() {
         mCategoryList = new ArrayList<>();
-        mCategoryList.add(new Category(R.drawable.dog, CATEGORY_MATH));
+        mCategoryList.add(new Category(R.drawable.math, CATEGORY_MATH));
         mCategoryList.add(new Category(R.drawable.dog, CATEGORY_ANIMAL));
-        mCategoryList.add(new Category(R.drawable.dog, CATEGORY_MARRIAGE));
-        mCategoryList.add(new Category(R.drawable.dog, CATEGORY_TECH));
+        mCategoryList.add(new Category(R.drawable.couple, CATEGORY_MARRIAGE));
+        mCategoryList.add(new Category(R.drawable.tech, CATEGORY_TECH));
     }
 
     /**
