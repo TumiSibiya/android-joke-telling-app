@@ -11,6 +11,8 @@ import com.example.android.jokedisplay.databinding.ActivityJokeBinding;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * The JokeActivity will display jokes passed to it as intent extras.
  */
@@ -25,6 +27,9 @@ public class JokeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityJokeBinding jokeBinding = DataBindingUtil.setContentView(this, R.layout.activity_joke);
+
+        // Set up Timber
+        Timber.plant(new Timber.DebugTree());
 
         // Only create new fragments when there is no previously saved state
         if (savedInstanceState == null) {

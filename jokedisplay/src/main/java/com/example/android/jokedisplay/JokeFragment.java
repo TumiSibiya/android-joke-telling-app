@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import com.example.android.jokedisplay.databinding.FragmentJokeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * The JokeFragment displays a joke.
@@ -25,9 +26,6 @@ public class JokeFragment extends Fragment {
     /** Final Strings to store state information about the list of jokes and joke index */
     public static final String JOKES = "jokes";
     public static final String JOKE_INDEX = "joke_index";
-
-    /** Tag for logging */
-    private static final String TAG = "JokeFragment";
 
     /** Variables to store a list of jokes and the index of the joke that this fragment displays */
     private List<String> mJokes;
@@ -76,7 +74,7 @@ public class JokeFragment extends Fragment {
                 }
             });
         } else {
-            Log.v(TAG, "This fragment has a null list of jokes");
+            Timber.v("This fragment has a null list of jokes");
         }
         return rootView;
     }

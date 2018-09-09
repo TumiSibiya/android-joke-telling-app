@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.util.Pair;
-import android.util.Log;
 
 import com.example.android.jokedisplay.JokeActivity;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -16,6 +15,8 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, List<String>> {
 
@@ -70,7 +71,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, L
             return myApiService.pullJokes(category).execute().getListData();
         } catch (IOException e) {
             mException = e;
-            Log.e("EndpointsAsyncTask", e.getMessage());
+            Timber.e( "Failed to fetch jokes: "+ e.getMessage());
             return null;
         }
     }

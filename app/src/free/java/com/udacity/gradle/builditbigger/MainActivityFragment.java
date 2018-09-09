@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,8 @@ import com.udacity.gradle.builditbigger.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 
 /**
@@ -138,7 +139,7 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         } else {
-            Log.d("EndpointAsyncTaskTest", "The interstitial wasn't loaded yet.");
+            Timber.d("The interstitial wasn't loaded yet.");
             startTask();
         }
     }
