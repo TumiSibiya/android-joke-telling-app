@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.udacity.gradle.builditbigger.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
@@ -29,6 +32,16 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
     private CategoryAdapter mCategoryAdapter;
     /** This field is used for data binding */
     private FragmentMainBinding mFragmentMainBinding;
+
+    /**
+     * An Interstitial ad object is used to request and display ads after the user hits the category
+     * item, but before showing a joke.
+     * Reference: @see "https://github.com/googleads/googleads-mobile-android-examples/tree/master/java/admob/InterstitialExample"
+     */
+    private InterstitialAd mInterstitialAd;
+
+    /** The joke category the user will select */
+    private String mCategory;
 
     public static final String CATEGORY_MATH = "math";
     public static final String CATEGORY_ANIMAL = "animal";
@@ -60,6 +73,21 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
+
+        // Create the InterstitialAd and set the adUnitId
+        mInterstitialAd = new InterstitialAd(this.getContext());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
+        // Load an interstitial ad
+        mInterstitialAd.loadAd(adRequest);
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial ad if one isn't already loaded. Then, kick off a task
+                // to retrieve a joke
+                startTask();
+            }
+        });
+
         return root;
     }
 
@@ -99,7 +127,31 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
      */
     @Override
     public void onItemClick(int position) {
-        String category = mCategoryList.get(position).getCategoryName();
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(getActivity(), category));
+        mCategory = mCategoryList.get(position).getCategoryName();
+        showInterstitial();
+    }
+
+    /**
+     * Show the ad if it's ready. Otherwise, use log and start a task to retrieve a joke.
+     */
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Log.d("EndpointAsyncTaskTest", "The interstitial wasn't loaded yet.");
+            startTask();
+        }
+    }
+
+    /**
+     * Request a new ad if one isn't already loaded, and kick off a task to retrieve a joke.
+     */
+    private void startTask() {
+        // Load the next interstitial ad if one isn't already loaded
+        if (!mInterstitialAd.isLoaded() && !mInterstitialAd.isLoaded()) {
+            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        }
+        // Kick off a task to retrieve a joke
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(getActivity(), mCategory));
     }
 }
