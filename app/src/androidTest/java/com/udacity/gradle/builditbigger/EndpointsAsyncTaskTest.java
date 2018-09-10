@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.util.Pair;
@@ -15,6 +16,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -39,6 +41,7 @@ public class EndpointsAsyncTaskTest {
     /** The Exception to handle errors */
     private Exception mException = null;
     private EndpointsAsyncTask.OnTaskComplete mCallback = null;
+    private static final int POSITION_ONE = 1;
 
     /**
      * A synchronization aid that allows one or more threads to wait until a set of operations being
@@ -83,6 +86,9 @@ public class EndpointsAsyncTaskTest {
         // Verify that the received joke string is not empty
         assertTrue(mJokes.get(0), !mJokes.get(0).isEmpty());
 
+        // Click on a category at the first position in the RecyclerView
+        onView(withId(R.id.rv_category))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(POSITION_ONE, click()));
         // Check the joke string is displayed in the TextView
         onView(withId(R.id.tv_joke))
                 .check(matches(isDisplayed()));
