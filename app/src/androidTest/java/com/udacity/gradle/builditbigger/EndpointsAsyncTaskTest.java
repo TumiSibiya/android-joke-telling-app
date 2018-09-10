@@ -1,10 +1,8 @@
 package com.udacity.gradle.builditbigger;
 
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.util.Pair;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -73,7 +71,7 @@ public class EndpointsAsyncTaskTest {
                 // reaches zero
                 mSignal.countDown();
             }
-        }).execute(new Pair<>(InstrumentationRegistry.getTargetContext(), "animal"));
+        }).execute("animal");
 
         // Causes the current thread to wait until the latch has counted down to zero,
         // unless the thread is interrupted, or the specified waiting time elapses.

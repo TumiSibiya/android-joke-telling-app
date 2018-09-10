@@ -1,8 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.util.Pair;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -15,10 +13,9 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, List<String>> {
+public class EndpointsAsyncTask extends AsyncTask<String, Void, List<String>> {
 
     private static MyApi myApiService = null;
-    private Context mContext;
 
     /** Member variable for exception to handle errors */
     private Exception mException = null;
@@ -68,7 +65,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, L
     }
 
     @Override
-    protected List<String> doInBackground(Pair<Context, String>... params) {
+    protected List<String> doInBackground(String... params) {
         if (myApiService == null) { // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
@@ -87,8 +84,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, L
             myApiService = builder.build();
         }
 
-        mContext = params[0].first;
-        String category = params[0].second;
+        String category = params[0];
 
         try {
             return myApiService.pullJokes(category).execute().getListData();
