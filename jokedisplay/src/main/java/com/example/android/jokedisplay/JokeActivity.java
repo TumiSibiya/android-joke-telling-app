@@ -5,7 +5,9 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.example.android.jokedisplay.databinding.ActivityJokeBinding;
 
@@ -48,6 +50,9 @@ public class JokeActivity extends AppCompatActivity {
                     .add(R.id.joke_container, jokeFragment)
                     .commit();
         }
+
+        // Show up button in the actionbar
+        showUpButton();
     }
 
     /**
@@ -61,5 +66,27 @@ public class JokeActivity extends AppCompatActivity {
             }
         }
         return mJokes;
+    }
+
+    /**
+     * Shows up button in the actionbar.
+     */
+    private void showUpButton() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            // When the up button in action bar is clicked, finish the JokeActivity.
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
