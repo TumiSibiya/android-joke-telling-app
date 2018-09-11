@@ -28,6 +28,8 @@ public class EndpointsAsyncTaskTest {
     private static final int COUNT = 1;
     /** The waiting time */
     private static final int TIME_OUT = 10;
+    /** The constant for category animal */
+    private static final String CATEGORY_ANIMAL = "animal";
     /** The list of jokes that EndpointAsyncTask retrieves */
     private List<String> mJokes = null;
     /** The Exception to handle errors */
@@ -77,7 +79,7 @@ public class EndpointsAsyncTaskTest {
                 // reaches zero
                 mSignal.countDown();
             }
-        }).execute("animal");
+        }).execute(CATEGORY_ANIMAL);
 
         // Causes the current thread to wait until the latch has counted down to zero,
         // unless the thread is interrupted, or the specified waiting time elapses.
