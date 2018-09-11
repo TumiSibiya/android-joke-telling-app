@@ -38,7 +38,20 @@ public class EndpointsAsyncTaskTest {
     private List<String> mJokes = null;
     /** The Exception to handle errors */
     private Exception mException = null;
-    private EndpointsAsyncTask.OnTaskComplete mCallback = null;
+    /**
+     * Anonymous interface instance
+     * Reference @see "https://discussions.udacity.com/t/issue-with-testing-asynctask/244261/11"
+     * @see "https://stackoverflow.com/questions/26353020/android-how-to-pass-interface-to-asynctask/26353184#26353184"
+     */
+    private EndpointsAsyncTask.OnTaskComplete mCallback = new EndpointsAsyncTask.OnTaskComplete() {
+        @Override
+        public void onTaskComplete(List<String> jokeResult) {
+        }
+
+        @Override
+        public void onPreTask() {
+        }
+    };
     private static final int POSITION_ONE = 1;
 
     /**
