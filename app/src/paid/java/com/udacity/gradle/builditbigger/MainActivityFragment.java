@@ -145,7 +145,7 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
      * @param result The result returned by doInBackground method
      */
     private void startJokeActivity(List<String> result) {
-        Intent intent = new Intent(this.getActivity(), JokeActivity.class);
+        Intent intent = new Intent(this.getContext(), JokeActivity.class);
         intent.putStringArrayListExtra(JokeActivity.JOKE_KEY, (ArrayList<String>) result);
         startActivity(intent);
     }
