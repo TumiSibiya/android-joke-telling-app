@@ -3,23 +3,21 @@ package com.udacity.gradle.builditbigger;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.android.jokedisplay.JokeActivity;
-import com.udacity.gradle.builditbigger.databinding.FragmentMainBinding;
+import com.udacity.gradle.builditbigger.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class MainActivityFragment extends Fragment implements CategoryAdapter.CategoryAdapterOnClickHandler,
+import timber.log.Timber;
+
+public class MainActivity extends AppCompatActivity implements CategoryAdapter.CategoryAdapterOnClickHandler,
         EndpointsAsyncTask.OnTaskComplete {
 
     /** Member variable for the list of categories */
@@ -27,7 +25,7 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
     /** Member variable for CategoryAdapter */
     private CategoryAdapter mCategoryAdapter;
     /** This field is used for data binding */
-    private FragmentMainBinding mFragmentMainBinding;
+    private ActivityMainBinding mMainBinding;
 
     /** The joke category the user will select */
     private String mCategory;
@@ -38,24 +36,16 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
     public static final String CATEGORY_TECH = "tech";
     public static final String CATEGORY_FAMILY = "family";
 
-    /**
-     * Mandatory empty constructor
-     */
-    public MainActivityFragment() {
-    }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Instantiate FragmentMainBinding using DataBindingUtil
-        mFragmentMainBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_main, container, false);
-        View root = mFragmentMainBinding.getRoot();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        // Set up Timber
+        Timber.plant(new Timber.DebugTree());
 
         // Initialize CategoryAdapter and RecyclerView
         initAdapter();
-
-        return root;
     }
 
     /**
@@ -69,10 +59,10 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
 
         // A LinearLayoutManager is responsible for measuring and positioning item views within a
         // RecyclerView into a linear list
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-        mFragmentMainBinding.rvCategory.setLayoutManager(layoutManager);
-        mFragmentMainBinding.rvCategory.setHasFixedSize(true);
-        mFragmentMainBinding.rvCategory.setAdapter(mCategoryAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mMainBinding.rvCategory.setLayoutManager(layoutManager);
+        mMainBinding.rvCategory.setHasFixedSize(true);
+        mMainBinding.rvCategory.setAdapter(mCategoryAdapter);
     }
 
     /**
@@ -133,7 +123,7 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
     @Override
     public void onTaskComplete(List<String> jokeResult) {
         // Hide the loading indicator
-        mFragmentMainBinding.pbLoadingIndicator.setVisibility(View.GONE);
+        mMainBinding.pbLoadingIndicator.setVisibility(View.GONE);
 
         // Start a JokeActivity to display a joke
         startJokeActivity(jokeResult);
@@ -145,7 +135,7 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
      * @param result The result returned by doInBackground method
      */
     private void startJokeActivity(List<String> result) {
-        Intent intent = new Intent(this.getContext(), JokeActivity.class);
+        Intent intent = new Intent(this, JokeActivity.class);
         intent.putStringArrayListExtra(JokeActivity.JOKE_KEY, (ArrayList<String>) result);
         startActivity(intent);
     }
@@ -155,9 +145,9 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
      */
     private void showLoading() {
         // First, hide the categories
-        mFragmentMainBinding.rvCategory.setVisibility(View.GONE);
+        mMainBinding.rvCategory.setVisibility(View.GONE);
         // Then, show the loading indicator
-        mFragmentMainBinding.pbLoadingIndicator.setVisibility(View.VISIBLE);
+        mMainBinding.pbLoadingIndicator.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -165,8 +155,31 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
      */
     private void showCategory() {
         // First, hide the loading indicator
-        mFragmentMainBinding.pbLoadingIndicator.setVisibility(View.GONE);
+        mMainBinding.pbLoadingIndicator.setVisibility(View.GONE);
         // Then, make sure the categories visible
-        mFragmentMainBinding.rvCategory.setVisibility(View.VISIBLE);
+        mMainBinding.rvCategory.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

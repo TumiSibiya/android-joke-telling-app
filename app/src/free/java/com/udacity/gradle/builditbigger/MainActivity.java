@@ -3,30 +3,26 @@ package com.udacity.gradle.builditbigger;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.android.jokedisplay.JokeActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.udacity.gradle.builditbigger.databinding.FragmentMainBinding;
+import com.udacity.gradle.builditbigger.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
 
-
-/**
- * A placeholder fragment containing a simple view.
- */
-public class MainActivityFragment extends Fragment implements CategoryAdapter.CategoryAdapterOnClickHandler,
+public class MainActivity extends AppCompatActivity implements CategoryAdapter.CategoryAdapterOnClickHandler,
         EndpointsAsyncTask.OnTaskComplete {
 
     /** Member variable for the list of categories */
@@ -34,7 +30,7 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
     /** Member variable for CategoryAdapter */
     private CategoryAdapter mCategoryAdapter;
     /** This field is used for data binding */
-    private FragmentMainBinding mFragmentMainBinding;
+    private ActivityMainBinding mMainBinding;
 
     /**
      * An Interstitial ad object is used to request and display ads after the user hits the category
@@ -51,24 +47,15 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
     public static final String CATEGORY_MARRIAGE = "marriage";
     public static final String CATEGORY_TECH = "tech";
 
-    /**
-     * Mandatory empty constructor
-     */
-    public MainActivityFragment() {
-    }
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Instantiate FragmentMainBinding using DataBindingUtil
-        mFragmentMainBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_main, container, false);
-        View root = mFragmentMainBinding.getRoot();
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         // Initialize CategoryAdapter and RecyclerView
         initAdapter();
 
-        AdView mAdView = (AdView) root.findViewById(R.id.adView);
+        AdView mAdView = (AdView) findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
@@ -78,7 +65,7 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
         mAdView.loadAd(adRequest);
 
         // Create the InterstitialAd and set the adUnitId
-        mInterstitialAd = new InterstitialAd(this.getContext());
+        mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
         // Load an interstitial ad
         mInterstitialAd.loadAd(adRequest);
@@ -90,8 +77,6 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
                 startTask();
             }
         });
-
-        return root;
     }
 
     /**
@@ -105,10 +90,10 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
 
         // A LinearLayoutManager is responsible for measuring and positioning item views within a
         // RecyclerView into a linear list
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-        mFragmentMainBinding.rvCategory.setLayoutManager(layoutManager);
-        mFragmentMainBinding.rvCategory.setHasFixedSize(true);
-        mFragmentMainBinding.rvCategory.setAdapter(mCategoryAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mMainBinding.rvCategory.setLayoutManager(layoutManager);
+        mMainBinding.rvCategory.setHasFixedSize(true);
+        mMainBinding.rvCategory.setAdapter(mCategoryAdapter);
     }
 
     /**
@@ -164,8 +149,8 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
      */
     @Override
     public void onPreTask() {
-        mFragmentMainBinding.pbLoadingIndicator.setVisibility(View.VISIBLE);
-        mFragmentMainBinding.rvCategory.setVisibility(View.GONE);
+        mMainBinding.pbLoadingIndicator.setVisibility(View.VISIBLE);
+        mMainBinding.rvCategory.setVisibility(View.GONE);
     }
 
     /**
@@ -176,8 +161,8 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
      */
     @Override
     public void onTaskComplete(List<String> jokeResult) {
-        mFragmentMainBinding.pbLoadingIndicator.setVisibility(View.GONE);
-        mFragmentMainBinding.rvCategory.setVisibility(View.VISIBLE);
+        mMainBinding.pbLoadingIndicator.setVisibility(View.GONE);
+        mMainBinding.rvCategory.setVisibility(View.VISIBLE);
 
         // Start a JokeActivity to display a joke
         startJokeActivity(jokeResult);
@@ -189,9 +174,30 @@ public class MainActivityFragment extends Fragment implements CategoryAdapter.Ca
      * @param result The result returned by doInBackground method
      */
     private void startJokeActivity(List<String> result) {
-        Intent intent = new Intent(this.getContext(), JokeActivity.class);
+        Intent intent = new Intent(this, JokeActivity.class);
         intent.putStringArrayListExtra(JokeActivity.JOKE_KEY, (ArrayList<String>) result);
         startActivity(intent);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
