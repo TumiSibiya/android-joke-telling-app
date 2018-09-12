@@ -20,3 +20,35 @@ allprojects {
         google()
     }
 }
+/*
+ A Gradle task that starts the GCE dev server, runs all the Android tests, and shuts down the dev server.
+
+ Reference: @see "https://discussions.udacity.com/t/configure-test-task/186461"
+ @see "https://docs.gradle.org/current/userguide/more_about_tasks.html#sec:adding_dependencies_to_tasks"
+ @see "https://discussions.udacity.com/t/last-optional-step-how-to-start-an-external-module-task-from-the-root-build-gradle/24211/28"
+ */
+task launchGCE (dependsOn: ':backend:appengineStart') {
+    doLast {
+        println 'Launch the GCE local development server'
+    }
+}
+
+task runAllTests (dependsOn: ':app:connectedAndroidTest') {
+    doLast {
+        println 'Run all tests'
+    }
+}
+
+task shutServerDown (dependsOn: ':backend:appengineStop') {
+    doLast {
+        println 'Shut the server down'
+    }
+}
+
+task test (dependsOn: [launchGCE, runAllTests]) {
+    mustRunAfter launchGCE
+    doLast {
+        println 'Complete test task'
+    }
+    finalizedBy shutServerDown
+}
