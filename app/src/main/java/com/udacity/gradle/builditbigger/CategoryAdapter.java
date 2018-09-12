@@ -97,13 +97,40 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
          */
         void bind(Category category) {
             mCategoryBinding.ivCategory.setImageResource(category.getImageId());
-            mCategoryBinding.tvCategory.setText(category.getCategoryName());
+
+            String categoryName = category.getCategoryName();
+            mCategoryBinding.tvCategory.setText(getCategoryText(categoryName));
         }
 
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
             mOnClickHandler.onItemClick(adapterPosition);
+        }
+
+        private String getCategoryText(String categoryName) {
+            String categoryText;
+            switch (categoryName) {
+                case Constants.CATEGORY_MATH:
+                    categoryText = itemView.getContext().getString(R.string.category_math);
+                    break;
+                case Constants.CATEGORY_ANIMAL:
+                    categoryText = itemView.getContext().getString(R.string.category_animal);
+                    break;
+                case Constants.CATEGORY_MARRIAGE:
+                    categoryText = itemView.getContext().getString(R.string.category_marriage);
+                    break;
+                case Constants.CATEGORY_TECH:
+                    categoryText = itemView.getContext().getString(R.string.category_tech);
+                    break;
+                case Constants.CATEGORY_FAMILY:
+                    categoryText = itemView.getContext().getString(R.string.category_family);
+                    break;
+                default:
+                    categoryText = itemView.getContext().getString(R.string.category_family);
+                    break;
+            }
+            return categoryText;
         }
     }
 }

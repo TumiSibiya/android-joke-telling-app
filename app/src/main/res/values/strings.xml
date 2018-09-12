@@ -4,4 +4,10 @@
     <string name="button_text">Tell Joke</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Strings for the joke category -->
+    <string name="category_math">Math</string>
+    <string name="category_animal">Animal</string>
+    <string name="category_marriage">Marriage</string>
+    <string name="category_tech">Technology</string>
+    <string name="category_family">Family</string>
 </resources>

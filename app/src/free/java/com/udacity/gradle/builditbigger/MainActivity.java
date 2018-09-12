@@ -22,6 +22,11 @@ import java.util.List;
 
 import timber.log.Timber;
 
+import static com.udacity.gradle.builditbigger.Constants.CATEGORY_ANIMAL;
+import static com.udacity.gradle.builditbigger.Constants.CATEGORY_MARRIAGE;
+import static com.udacity.gradle.builditbigger.Constants.CATEGORY_MATH;
+import static com.udacity.gradle.builditbigger.Constants.CATEGORY_TECH;
+
 public class MainActivity extends AppCompatActivity implements CategoryAdapter.CategoryAdapterOnClickHandler,
         EndpointsAsyncTask.OnTaskComplete {
 
@@ -41,11 +46,6 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.C
 
     /** The joke category the user will select */
     private String mCategory;
-
-    public static final String CATEGORY_MATH = "math";
-    public static final String CATEGORY_ANIMAL = "animal";
-    public static final String CATEGORY_MARRIAGE = "marriage";
-    public static final String CATEGORY_TECH = "tech";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
