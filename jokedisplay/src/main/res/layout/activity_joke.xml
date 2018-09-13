@@ -1,13 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/joke_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/navigation_play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_divider"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@+id/navigation_play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/joke_container" />
+
+        <ImageButton
+            android:id="@+id/navigation_prev"
+            android:layout_width="@dimen/size_button"
+            android:layout_height="@dimen/size_button"
+            android:layout_margin="@dimen/margin_activity_small"
+            android:background="?android:attr/windowBackground"
+            android:contentDescription="@string/prev_content_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_previous"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/navigation_play"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/navigation_play"
+            android:layout_width="@dimen/size_button"
+            android:layout_height="@dimen/size_button"
+            android:layout_margin="@dimen/margin_activity_small"
+            android:background="?android:attr/windowBackground"
+            android:contentDescription="@string/play_content_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_play"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <ImageButton
+            android:id="@+id/navigation_next"
+            android:layout_width="@dimen/size_button"
+            android:layout_height="@dimen/size_button"
+            android:layout_margin="@dimen/margin_activity_small"
+            android:background="?android:attr/windowBackground"
+            android:contentDescription="@string/next_content_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/navigation_play" />
+
+    </android.support.constraint.ConstraintLayout>
 </layout>

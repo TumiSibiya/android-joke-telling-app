@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Joke Display</string>
+
+    <!-- Content description for ImageButton -->
+    <string name="prev_content_description">previous button</string>
+    <string name="next_content_description">next button</string>
+    <string name="play_content_description">play button</string>
 </resources>
