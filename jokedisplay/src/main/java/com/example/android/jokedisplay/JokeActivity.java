@@ -3,17 +3,23 @@ package com.example.android.jokedisplay;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.android.jokedisplay.databinding.ActivityJokeBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
+
+import static com.example.android.jokedisplay.JokeFragment.JOKES;
+import static com.example.android.jokedisplay.JokeFragment.JOKE_INDEX;
 
 /**
  * The JokeActivity will display jokes passed to it as intent extras.
@@ -22,16 +28,33 @@ public class JokeActivity extends AppCompatActivity {
 
     public static final String JOKE_KEY = "Joke key";
 
-    /** Member variable for the list of jokes */
+    /** Member variable for the list of jokes and list index */
     private List<String> mJokes;
+    private int mJokeIndex;
+
+    /** This field is used for data binding */
+    private ActivityJokeBinding mJokeBinding;
+
+    /** True when the user clicks the play button to switch the fragment automatically, otherwise false */
+    private Boolean mIsPlaying;
+
+    /** Schedule a countdown until a time in the future, with regular notifications on intervals
+     * along the way */
+    private CountDownTimer mCountDownTimer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityJokeBinding jokeBinding = DataBindingUtil.setContentView(this, R.layout.activity_joke);
+        mJokeBinding = DataBindingUtil.setContentView(this, R.layout.activity_joke);
 
         // Set up Timber
         Timber.plant(new Timber.DebugTree());
+
+        // Load the saved state (the list of jokes and joke index) if there is one
+        if (savedInstanceState != null) {
+            mJokes = savedInstanceState.getStringArrayList(JOKES);
+            mJokeIndex = savedInstanceState.getInt(JOKE_INDEX);
+        }
 
         // Only create new fragments when there is no previously saved state
         if (savedInstanceState == null) {
@@ -53,6 +76,9 @@ public class JokeActivity extends AppCompatActivity {
 
         // Show up button in the actionbar
         showUpButton();
+
+        // Set the value of mIsPlaying to false not to switch the fragment automatically
+        mIsPlaying = false;
     }
 
     /**
@@ -89,4 +115,126 @@ public class JokeActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * When the user clicks the previous button, it navigates to the previous joke page.
+     */
+    public void onPreviousButtonClick(View view) {
+        // Decrement position by one if the index is greater than zero
+        if (mJokeIndex > 0) {
+            mJokeIndex--;
+        } else {
+            // The start of joke list has been reached, so return to ending index
+            mJokeIndex = mJokes.size() - 1;
+        }
+        // Give the correct joke index to the new fragment and replace the old fragment with a new one
+        replaceFragment();
+    }
+
+    /**
+     * When the user clicks the next button, it navigates to the next joke page.
+     */
+    public void onNextButtonClick(View view) {
+        // Increment position as long as the index remains (the size of the joke list)
+        if (mJokeIndex < mJokes.size() - 1) {
+            mJokeIndex++;
+        } else {
+            // The end of joke list has been reached, so return to beginning index
+            mJokeIndex = 0;
+        }
+        // Give the correct joke index to the new fragment and replace the old fragment with a new one
+        replaceFragment();
+    }
+
+    /**
+     * This method is called when the user clicks the play/pause button.
+     *
+     * Reference: @see "https://stackoverflow.com/questions/18120174/how-to-play-and-pause-in-only-one-button-android"
+     */
+    public void onPlayButtonClick(View view) {
+        if (mIsPlaying) {
+            // Cancel the countdown not to switch the fragment automatically
+            pause();
+            // Set the image to 'play' image
+            mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_play);
+        } else {
+            // Switch the fragment automatically
+            play(view);
+            // Set the image to 'pause' image
+            mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_pause);
+        }
+        // Reverse the value of a boolean
+        mIsPlaying = !mIsPlaying;
+    }
+
+    /**
+     * Switches the fragment automatically.
+     *
+     * Reference: @see "https://stackoverflow.com/questions/27692756/android-switch-fragments-automatically-after-time"
+     */
+    private void play(final View view) {
+        mCountDownTimer = new CountDownTimer(10000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                // After 10000 milliseconds in future, it navigates to the next joke page
+                onNextButtonClick(view);
+                // Make a CountDownTimer do a continuous loop and make sure cancel
+                // Reference: @see "https://stackoverflow.com/questions/13427134/id-like-to-make-a-
+                // countdown-timer-do-a-continuous-loop-in-android-need-opinio"
+                start();
+            }
+        };
+        // Start the countdown
+        mCountDownTimer.start();
+    }
+
+    /**
+     * Cancels the countdown.
+     */
+    private void pause() {
+        mCountDownTimer.cancel();
+    }
+
+    /**
+     * Replace the old fragment with a new one to display a new joke.
+     */
+    private void replaceFragment() {
+        // Create a joke fragment
+        JokeFragment jokeFragment = new JokeFragment();
+        // Give the correct joke index to the new fragment
+        jokeFragment.setJokeIndex(mJokeIndex);
+        jokeFragment.setJokeList(mJokes);
+        // Replace the old fragment with a new one
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.joke_container, jokeFragment)
+                .commit();
+    }
+
+    /**
+     * Save the current state.
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList(JOKES, (ArrayList<String>) mJokes);
+        outState.putInt(JOKE_INDEX, mJokeIndex);
+    }
+
+    /**
+     * Make sure cancel CountDownTimer in onPause() when looping a CountDownTimer. Otherwise, the
+     * timer might leak and keep firing in the background.
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mIsPlaying) {
+            mCountDownTimer.cancel();
+        }
+    }
+
 }

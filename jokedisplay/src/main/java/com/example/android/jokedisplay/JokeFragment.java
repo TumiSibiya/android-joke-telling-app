@@ -89,6 +89,10 @@ public class JokeFragment extends Fragment {
         mJokes = jokeList;
     }
 
+    public void setJokeIndex(int jokeIndex) {
+        mJokeIndex = jokeIndex;
+    }
+
     /**
      * Save the current state of this fragment
      */
