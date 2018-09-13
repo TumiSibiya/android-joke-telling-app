@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -27,6 +30,11 @@ import static com.example.android.jokedisplay.JokeFragment.JOKE_INDEX;
 public class JokeActivity extends AppCompatActivity {
 
     public static final String JOKE_KEY = "Joke key";
+    /** Type of the share intent data */
+    private static final String SHARE_INTENT_TYPE_TEXT = "text/plain";
+    /** Unicode for Emoji used for sharing a joke */
+    private static final int UNICODE_GRIN = 0x1F601;
+    private static final int UNICODE_ROFL = 0x1F923;
 
     /** Member variable for the list of jokes and list index */
     private List<String> mJokes;
@@ -111,6 +119,10 @@ public class JokeActivity extends AppCompatActivity {
         if (itemId == android.R.id.home) {
             // When the up button in action bar is clicked, finish the JokeActivity.
             finish();
+            return true;
+        } else if (itemId == R.id.action_share) {
+            // Share a joke using share intent
+            startActivity(createShareIntent());
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -237,4 +249,38 @@ public class JokeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.joke, menu);
+        return true;
+    }
+
+    /**
+     * Uses the ShareCompat Intent builder to create our share intent for sharing.
+     * Return the newly created intent.
+     */
+    private Intent createShareIntent() {
+        // Text message to share
+        String shareText = mJokes.get(mJokeIndex) + getString(R.string.space)
+                + getEmojiByUnicode(UNICODE_GRIN) + getEmojiByUnicode(UNICODE_ROFL);
+
+        // Create share intent
+        Intent shareIntent = ShareCompat.IntentBuilder.from(this)
+                .setType(SHARE_INTENT_TYPE_TEXT)
+                .setText(shareText)
+                .setChooserTitle(getString(R.string.share_title))
+                .createChooserIntent();
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+        return shareIntent;
+    }
+
+    /**
+     * Returns String for Emoji.
+     *
+     * Reference: @see "https://stackoverflow.com/questions/26893796/how-set-emoji-by-unicode-in-a-textview"
+     */
+    private String getEmojiByUnicode(int unicode) {
+        return new String(Character.toChars(unicode));
+    }
 }

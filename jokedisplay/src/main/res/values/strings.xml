@@ -5,4 +5,9 @@
     <string name="prev_content_description">previous button</string>
     <string name="next_content_description">next button</string>
     <string name="play_pause_content_description">play and pause button</string>
+
+    <!-- Strings for menu -->
+    <string name="action_share">share</string>
+    <string name="share_title">Share a joke</string>
+    <string name="space">\u0020</string>
 </resources>
