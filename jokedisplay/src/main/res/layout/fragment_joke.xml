@@ -5,7 +5,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_background">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -16,7 +17,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:fontFamily="@font/noto_sans_regular"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/color_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -46,11 +46,12 @@
                     android:layout_marginEnd="@dimen/margin_activity"
                     android:layout_marginRight="@dimen/margin_activity"
                     android:fontFamily="@font/fredoka_one_regular"
+                    android:textColor="@color/color_category"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/horizontal_guideline"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="math" />
+                    tools:text="Math" />
 
             </android.support.constraint.ConstraintLayout>
 

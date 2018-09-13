@@ -4,7 +4,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_background">
 
         <FrameLayout
             android:id="@+id/joke_container"
@@ -30,11 +31,12 @@
             android:layout_width="@dimen/size_button"
             android:layout_height="@dimen/size_button"
             android:layout_margin="@dimen/margin_activity_small"
-            android:background="?android:attr/windowBackground"
+            android:background="@null"
             android:contentDescription="@string/prev_content_description"
             android:onClick="onPreviousButtonClick"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_previous"
+            android:tint="@color/color_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/navigation_play"
             app:layout_constraintStart_toStartOf="parent" />
@@ -44,11 +46,12 @@
             android:layout_width="@dimen/size_button"
             android:layout_height="@dimen/size_button"
             android:layout_margin="@dimen/margin_activity_small"
-            android:background="?android:attr/windowBackground"
+            android:background="@null"
             android:contentDescription="@string/play_pause_content_description"
             android:onClick="onPlayButtonClick"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_play"
+            android:tint="@color/color_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,11 +62,12 @@
             android:layout_width="@dimen/size_button"
             android:layout_height="@dimen/size_button"
             android:layout_margin="@dimen/margin_activity_small"
-            android:background="?android:attr/windowBackground"
+            android:background="@null"
             android:contentDescription="@string/next_content_description"
             android:onClick="onNextButtonClick"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_next"
+            android:tint="@color/color_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/navigation_play" />
