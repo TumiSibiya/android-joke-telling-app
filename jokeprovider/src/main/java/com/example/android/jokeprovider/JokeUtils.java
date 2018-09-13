@@ -13,6 +13,12 @@ public class JokeUtils {
 
     private static final List<String> mathJokes = new ArrayList<String>() {{
         // Reference: https://unijokes.com/
+        add("If you had a million dollars and " +
+                "gave away one quarter, and another quarter, and then another quarter," +
+                " how much would you have left?\nA million dollars minus 75 cents.");
+        // Reference: https://www.quickfunnyjokes.com/math.html
+        add("What is a bird\'s favorite type of math?\nOwl-gebra");
+        // Reference: https://unijokes.com/
         add("Little Johnny was sitting in class " +
                 "doing math problems when his teacher picked him to answer a question, " +
                 "\"Johnny, if there were five birds sitting on a fence and you shot one " +
@@ -26,12 +32,6 @@ public class JokeUtils {
                 "teacher nervously, \"I guess the one sucking the cone.\"\n" +
                 "\"No,\" said Little Johnny, \"the one with the wedding ring on her " +
                 "finger, but I like the way you\'re thinking.\"");
-        // Reference: https://unijokes.com/
-        add("If you had a million dollars and " +
-                "gave away one quarter, and another quarter, and then another quarter," +
-                " how much would you have left?\nA million dollars minus 75 cents.");
-        // Reference: https://www.quickfunnyjokes.com/math.html
-        add("What is a bird\'s favorite type of math?\nOwl-gebra");
         // Reference: https://thoughtcatalog.com/january-nelson/2018/04/39-math-jokes-and-puns-that-will-make-you-smile-easy-as-pi/
         add("What did the zero say to the eight?\nNice belt!");
         // Reference: https://unijokes.com/
@@ -54,19 +54,19 @@ public class JokeUtils {
         add("My girlfriend is the square root of -100. She\'s a perfect 10, but purely " +
                 "imaginary.");
         // Reference: https://unijokes.com/
-        add("Son: Dad, it\'s so cold in here!\n" +
-                "Father: Go stand in the corner.\n" +
-                "Son: Why?\n" +
+        add("Son: Dad, it\'s so cold in here!\n\n" +
+                "Father: Go stand in the corner.\n\n" +
+                "Son: Why?\n\n" +
                 "Father: The corner is 90 degrees.");
         // Reference: https://owlcation.com/stem/Worst-Math-Jokes-and-Math-Puns
-        add("Q: Why is a math book depressed? A: Because it has so many problems.");
+        add("Q: Why is a math book depressed?\nA: Because it has so many problems.");
         // Reference: https://owlcation.com/stem/Worst-Math-Jokes-and-Math-Puns
         add("There are three people applying for the same job at a bank: a mathematician," +
-                " a statistician, and an accountant. The interviewing committee asks" +
-                " the mathematician one question: What is 500 plus 500? " +
+                " a statistician, and an accountant.\nThe interviewing committee asks" +
+                " the mathematician one question: What is 500 plus 500?\n" +
                 "The mathematician answers \"1000\" without hesitation, and they send " +
-                "him along. Next they call in the statistician and ask the same question." +
-                " He thinks for a moment and answers \"1000... I\'m 95% confident.\"" +
+                "him along.\nNext they call in the statistician and ask the same question." +
+                " He thinks for a moment and answers \"1000... I\'m 95% confident.\"\n" +
                 " When the accountant comes in, he is asked the same question: \"What " +
                 "is 500 + 500?\" He bows and replies, \"What would you like it to be?\" " +
                 "They hire the accountant.");
@@ -96,9 +96,6 @@ public class JokeUtils {
         // Reference: https://unijokes.com/
         add("Yo momma so fat when she went to the circus the little girl asked if she " +
                 "could ride the elephant.");
-        // Reference: https://unijokes.com/
-        add("Yo Mama is so fat, if she buys a fur coat, a whole species will become" +
-                " extinct.");
         // Reference: http://www.kidzjokes.com/milkshake-joke/
         add("Where do milkshakes come from?\nNervous cows.");
         // Reference: http://www.kidzjokes.com/10-cows-joke-funny-cows-joke/
@@ -106,6 +103,9 @@ public class JokeUtils {
         // Reference: http://www.kidzjokes.com/farm-joke-two-pigs-and-chicken-joke/
         add("What do you have when two pigs and a chicken get together for breakfast?\n" +
                 "Sausage, ham and eggs!");
+        // Reference: https://unijokes.com/
+        add("Yo Mama is so fat, if she buys a fur coat, a whole species will become" +
+                " extinct.");
         // Reference: http://www.kidzjokes.com/dog-joke-city/
         add("What kind of dog lives in the city?\nA New Yorkie!");
         // Reference: http://www.kidzjokes.com/cow-joke-cross-cow-and-smurf/
@@ -158,8 +158,8 @@ public class JokeUtils {
         add("In the first year of marriage, the man speaks and the woman listens. \n" +
                 "In the second year, the woman speaks and the man listens. \n" +
                 "In the third year, they both speak and the neighbors listen.");
-        add("Wife: Why do you go out in the balcony, when I start singing.\n" +
-                "Husband: Because the people would think I am beating you.");
+        add("Wife: \"Why do you go out in the balcony, when I start singing.\"\n" +
+                "Husband: \"Because the people would think I am beating you.\"");
         add("A woman was telling her friend, \"It was I who made my husband a " +
                 "millionaire.\"\n" +
                 "\"And what was he before you married him?\" asked the friend. \n" +
@@ -224,8 +224,8 @@ public class JokeUtils {
                 "the new ones will pick you up in 20 minutes.\"\n" +
                 "\n");
         // Reference: https://bskud.com/jokes/english/latest.php
-        add("Son: \"Dad, my stomach is paining.\"\n" + "Father: \"That\'s because your " +
-                "stomach is empty.\"\n" +
+        add("Son: \"Dad, my stomach is paining.\"\n\n" + "Father: \"That\'s because your " +
+                "stomach is empty.\"\n\n" +
                 "Son: \"Oh! Now I understand why you always have headache.\"");
         // Reference: https://unijokes.com/
         add("Three highly decorated police officers die in a wild shoot out with " +
@@ -268,8 +268,8 @@ public class JokeUtils {
                 "very much.\"\n" + "The friend said, \"Then what\'s the problem?\"\n" +
                 "Thomas replied, \"My father doesn\'t like her.\"");
         // Reference: https://unijokes.com/
-        add("Son: \"Daddy; why some of your hairs have turned white?\"\n" +
-                "Father: \"Every lie told by you makes one of my hairs white.\"\n" +
+        add("Son: \"Daddy, why some of your hairs have turned white?\"\n\n" +
+                "Father: \"Every lie told by you makes one of my hairs white.\"\n\n" +
                 "Son: \"Oh now I understood why all grandfathers\' hairs are white.\"");
 
     }};
