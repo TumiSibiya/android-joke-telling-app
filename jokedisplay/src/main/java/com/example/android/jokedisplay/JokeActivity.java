@@ -186,10 +186,8 @@ public class JokeActivity extends AppCompatActivity {
             // Set the image to 'play' image
             mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_play);
         } else {
-            // Switch the fragment automatically
+            // Switch the fragment automatically and change play image to pause image
             play();
-            // Set the image to 'pause' image
-            mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_pause);
         }
         // Reverse the value of a boolean
         mIsPlaying = !mIsPlaying;
@@ -203,6 +201,9 @@ public class JokeActivity extends AppCompatActivity {
      * @see "https://stackoverflow.com/questions/39024588/android-postdelayed-handler-inside-a-for-loop"
      */
     private void play() {
+        // Set the image to 'pause' image
+        mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_pause);
+
         mRunnable = new Runnable() {
             @Override
             public void run() {
@@ -260,8 +261,6 @@ public class JokeActivity extends AppCompatActivity {
             // If mIsPlaying is true, switches the fragment automatically.
             // Reference: @see "https://stackoverflow.com/questions/23538843/android-handler-and-runnable-nullpointer"
             play();
-            // Set the image to 'pause' image
-            mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_pause);
         }
     }
 
