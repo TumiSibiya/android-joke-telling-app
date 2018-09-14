@@ -23,4 +23,8 @@ public class Constants {
 
     /** The detail message for the InterruptedException */
     public static final String EXCEPTION_MESSAGE = "AsyncTask cancelled";
+
+    /** Key for storing the scroll position in MainActivity */
+    public static final String LAYOUT_MANAGER_STATE = "layout_manager_state";
+
 }

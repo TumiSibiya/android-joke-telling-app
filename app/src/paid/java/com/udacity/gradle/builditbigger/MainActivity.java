@@ -3,6 +3,7 @@ package com.udacity.gradle.builditbigger;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import static com.udacity.gradle.builditbigger.Constants.CATEGORY_FAMILY;
 import static com.udacity.gradle.builditbigger.Constants.CATEGORY_MARRIAGE;
 import static com.udacity.gradle.builditbigger.Constants.CATEGORY_MATH;
 import static com.udacity.gradle.builditbigger.Constants.CATEGORY_TECH;
+import static com.udacity.gradle.builditbigger.Constants.LAYOUT_MANAGER_STATE;
 
 /**
  * The MainActivity displays the list of joke categories.
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.C
     /** The joke category the user will select */
     private String mCategory;
 
+    /** Member variable for restoring list items positions on device rotation */
+    private Parcelable mSavedLayoutState;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +53,13 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.C
 
         // Initialize CategoryAdapter and RecyclerView
         initAdapter();
+
+        if (savedInstanceState != null) {
+            // Get the scroll position
+            mSavedLayoutState = savedInstanceState.getParcelable(LAYOUT_MANAGER_STATE);
+            // Restore the scroll position
+            mMainBinding.rvCategory.getLayoutManager().onRestoreInstanceState(mSavedLayoutState);
+        }
     }
 
     /**
@@ -65,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.C
         mMainBinding.rvCategory.setLayoutManager(layoutManager);
         mMainBinding.rvCategory.setHasFixedSize(true);
         mMainBinding.rvCategory.setAdapter(mCategoryAdapter);
+
+        // Restore the scroll position after setting up the adapter with the list of categories
+        mMainBinding.rvCategory.getLayoutManager().onRestoreInstanceState(mSavedLayoutState);
     }
 
     /**
@@ -183,5 +198,19 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.C
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Method for persisting data across Activity recreation
+     *
+     * Reference: @see "https://stackoverflow.com/questions/27816217/how-to-save-recyclerviews-scroll
+     * -position-using-recyclerview-state"
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Store the scroll position in our bundle
+        outState.putParcelable(LAYOUT_MANAGER_STATE,
+                mMainBinding.rvCategory.getLayoutManager().onSaveInstanceState());
     }
 }
