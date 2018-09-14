@@ -166,3 +166,24 @@ Once you have a functioning project, consider adding more features to test your 
 * Make the free app variant display interstitial ads between the main activity and the joke-displaying activity.
 * Have the app display a loading indicator while the joke is being fetched from the server.
 * Write a Gradle task that starts the GCE dev server, runs all the Android tests, and shuts down the dev server.
+
+## Image Resources
+
+[Math](https://www.flaticon.com/free-icon/maths_746961)
+made by [Prosymbols](https://www.flaticon.com/authors/prosymbols) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+[Dog](https://www.flaticon.com/free-icon/dog_141820)
+made by [Freepik](http://www.freepik.com) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+[Couple](https://www.flaticon.com/free-icon/couple_332901)
+made by [Freepik](http://www.freepik.com) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+[Development](https://www.flaticon.com/free-icon/development_762719)
+made by [Prosymbols](https://www.flaticon.com/authors/prosymbols) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+[Family](https://www.flaticon.com/free-icon/family_437553)
+made by [Freepik](http://www.freepik.com) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+[Wink](https://www.flaticon.com/free-icon/wink_136271)
+made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
