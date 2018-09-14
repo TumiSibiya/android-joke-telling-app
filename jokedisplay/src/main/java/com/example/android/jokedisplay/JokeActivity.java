@@ -197,7 +197,7 @@ public class JokeActivity extends AppCompatActivity {
      * Switches the fragment automatically.
      *
      * Reference: @see "https://stackoverflow.com/questions/35497844/handler-postdelayedrunnable-vs-countdowntimer"
-     * @see "https://guides.codepath.com/android/Repeating-Periodic-Tasks#alarmmanager"
+     * @see "https://guides.codepath.com/android/Repeating-Periodic-Tasks#execute-recurring-code-with-specified-interval"
      * @see "https://stackoverflow.com/questions/39024588/android-postdelayed-handler-inside-a-for-loop"
      */
     private void play() {
