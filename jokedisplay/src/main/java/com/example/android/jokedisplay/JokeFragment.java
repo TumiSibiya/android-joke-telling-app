@@ -60,19 +60,6 @@ public class JokeFragment extends Fragment {
         if (mJokes != null) {
             // Set the joke to the TextView
             mFragmentJokeBinding.tvJoke.setText(mJokes.get(mJokeIndex));
-            // Set a click listener on the TextView
-            mFragmentJokeBinding.tvJoke.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mJokeIndex < mJokes.size() - 1) {
-                        mJokeIndex ++;
-                    } else {
-                        mJokeIndex = 0;
-                    }
-                    // Set the joke string
-                    mFragmentJokeBinding.tvJoke.setText(mJokes.get(mJokeIndex));
-                }
-            });
         } else {
             Timber.v("This fragment has a null list of jokes");
         }
