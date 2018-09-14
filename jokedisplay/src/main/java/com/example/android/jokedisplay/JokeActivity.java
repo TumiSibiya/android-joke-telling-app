@@ -3,7 +3,7 @@ package com.example.android.jokedisplay;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ShareCompat;
@@ -35,9 +35,8 @@ public class JokeActivity extends AppCompatActivity {
     /** Unicode for Emoji used for sharing a joke */
     private static final int UNICODE_GRIN = 0x1F601;
     private static final int UNICODE_ROFL = 0x1F923;
-    /** Constant values used in a countdown timer */
-    private static final int MILLIS_IN_FUTURE = 10000;
-    private static final int COUNTDOWN_INTERVAL = 1000;
+    /** The delay (in milliseconds) until the Runnable will be executed */
+    private static final int DELAY_MILLIS = 7000;
 
     /** Member variable for the list of jokes and list index */
     private List<String> mJokes;
@@ -49,9 +48,9 @@ public class JokeActivity extends AppCompatActivity {
     /** True when the user clicks the play button to switch the fragment automatically, otherwise false */
     private Boolean mIsPlaying;
 
-    /** Schedule a countdown until a time in the future, with regular notifications on intervals
-     * along the way */
-    private CountDownTimer mCountDownTimer;
+    /** Schedule a runnable to be executed at some point in the future */
+    private Handler mHandler;
+    private Runnable mRunnable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -168,7 +167,7 @@ public class JokeActivity extends AppCompatActivity {
      */
     public void onPlayButtonClick(View view) {
         if (mIsPlaying) {
-            // Cancel the countdown not to switch the fragment automatically
+            // Remove the scheduled execution of a runnable
             pause();
             // Set the image to 'play' image
             mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_play);
@@ -185,33 +184,31 @@ public class JokeActivity extends AppCompatActivity {
     /**
      * Switches the fragment automatically.
      *
-     * Reference: @see "https://stackoverflow.com/questions/27692756/android-switch-fragments-automatically-after-time"
+     * Reference: @see "https://stackoverflow.com/questions/35497844/handler-postdelayedrunnable-vs-countdowntimer"
+     * @see "https://guides.codepath.com/android/Repeating-Periodic-Tasks#alarmmanager"
+     * @see "https://stackoverflow.com/questions/39024588/android-postdelayed-handler-inside-a-for-loop"
      */
     private void play(final View view) {
-        mCountDownTimer = new CountDownTimer(MILLIS_IN_FUTURE,COUNTDOWN_INTERVAL) {
+        mHandler = new Handler();
+        mRunnable = new Runnable() {
             @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @Override
-            public void onFinish() {
-                // After 10000 milliseconds in future, it navigates to the next joke page
+            public void run() {
+                // After 10000 milliseconds in future, it navigates to the next joke page.
                 onNextButtonClick(view);
-                // Make a CountDownTimer do a continuous loop and make sure cancel
-                // Reference: @see "https://stackoverflow.com/questions/13427134/id-like-to-make-a-
-                // countdown-timer-do-a-continuous-loop-in-android-need-opinio"
-                start();
+                // Repeat this the same runnable code block again another 7 seconds
+                // 'this' is referencing the Runnable object
+                mHandler.postDelayed(this, DELAY_MILLIS);
             }
         };
-        // Start the countdown
-        mCountDownTimer.start();
+        // Start the initial runnable task by posting through the handler
+        mHandler.post(mRunnable);
     }
 
     /**
-     * Cancels the countdown.
+     * Removes any pending posts of Runnable.
      */
     private void pause() {
-        mCountDownTimer.cancel();
+        mHandler.removeCallbacks(mRunnable);
     }
 
     /**
@@ -241,14 +238,13 @@ public class JokeActivity extends AppCompatActivity {
     }
 
     /**
-     * Make sure cancel CountDownTimer in onPause() when looping a CountDownTimer. Otherwise, the
-     * timer might leak and keep firing in the background.
+     * Make sure remove any pending posts of Runnable in onPause().
      */
     @Override
     protected void onPause() {
         super.onPause();
         if (mIsPlaying) {
-            mCountDownTimer.cancel();
+            pause();
         }
     }
 
