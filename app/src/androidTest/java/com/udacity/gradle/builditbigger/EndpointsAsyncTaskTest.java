@@ -70,7 +70,7 @@ public class EndpointsAsyncTaskTest {
         // Create an EndpointsAsyncTask
         EndpointsAsyncTask task = new EndpointsAsyncTask(mCallback);
         task.setListener(new EndpointsAsyncTask.EndpointsAsyncTaskListener() {
-            //
+            // Define the behavior for onComplete
             @Override
             public void onComplete(List<String> jokeResult, Exception e) {
                 mJokes = jokeResult;

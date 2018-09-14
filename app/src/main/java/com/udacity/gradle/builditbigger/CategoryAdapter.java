@@ -19,15 +19,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     /** Member variable for the list of categories */
     private List<Category> mCategoryList;
 
-    /** An on-click handler */
+    /**
+     * An on-click handler that we've defined to make it easy for an Activity to interface with
+     * our RecyclerView
+     */
     private final CategoryAdapterOnClickHandler mOnClickHandler;
 
+    /**
+     * The interface that receives onClick messages.
+     */
     public interface CategoryAdapterOnClickHandler {
         void onItemClick(int position);
     }
 
     /**
      * Constructor for CategoryAdapter.
+     *
+     * @param categoryList The list of categories to display
+     * @param onClickHandler OnClickHandler for list item clicks
      */
     public CategoryAdapter(List<Category> categoryList, CategoryAdapterOnClickHandler onClickHandler) {
         mCategoryList = categoryList;
@@ -86,6 +95,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         public CategoryViewHolder(CategoryListItemBinding categoryListItemBinding) {
             super(categoryListItemBinding.getRoot());
             mCategoryBinding = categoryListItemBinding;
+            // Set a click listener on the itemView
             itemView.setOnClickListener(this);
         }
 
@@ -96,18 +106,27 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
          * @param category The category object
          */
         void bind(Category category) {
+            // Set a category image
             mCategoryBinding.ivCategory.setImageResource(category.getImageId());
-
+            // Set a category text
             String categoryName = category.getCategoryName();
             mCategoryBinding.tvCategory.setText(getCategoryText(categoryName));
         }
 
+        /**
+         * Called by the child views during a click.
+         *
+         * @param v The View that was clicked
+         */
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
             mOnClickHandler.onItemClick(adapterPosition);
         }
 
+        /**
+         * Gets a category text by category name.
+         */
         private String getCategoryText(String categoryName) {
             String categoryText;
             switch (categoryName) {

@@ -27,6 +27,9 @@ import static com.udacity.gradle.builditbigger.Constants.CATEGORY_MARRIAGE;
 import static com.udacity.gradle.builditbigger.Constants.CATEGORY_MATH;
 import static com.udacity.gradle.builditbigger.Constants.CATEGORY_TECH;
 
+/**
+ * The MainActivity displays the list of joke categories.
+ */
 public class MainActivity extends AppCompatActivity implements CategoryAdapter.CategoryAdapterOnClickHandler,
         EndpointsAsyncTask.OnTaskComplete {
 

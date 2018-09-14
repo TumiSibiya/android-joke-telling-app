@@ -1,7 +1,15 @@
 package com.udacity.gradle.builditbigger;
 
+/**
+ * Define specific constants.
+ */
 public class Constants {
 
+    private Constants() {
+        // Restrict instantiation
+    }
+
+    /** Constants for joke categories */
     public static final String CATEGORY_MATH = "math";
     public static final String CATEGORY_ANIMAL = "animal";
     public static final String CATEGORY_MARRIAGE = "marriage";

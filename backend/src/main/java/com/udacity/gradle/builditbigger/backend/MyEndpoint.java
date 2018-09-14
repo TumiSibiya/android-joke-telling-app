@@ -30,6 +30,7 @@ public class MyEndpoint {
         return response;
     }
 
+    /** A simple endpoint method that takes a category and pull jokes */
     @ApiMethod(name = "pullJokes")
     public MyBean pullJokes(@Named("category") String category) {
         JokeProvider jokeProvider = new JokeProvider();

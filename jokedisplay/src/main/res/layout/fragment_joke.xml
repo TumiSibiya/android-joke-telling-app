@@ -12,6 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- Display a joke -->
             <TextView
                 android:id="@+id/tv_joke"
                 android:layout_width="match_parent"

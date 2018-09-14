@@ -31,7 +31,8 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, List<String>> {
     }
 
     /**
-     * Define a new interface OnTaskComplete that triggers a Callback.
+     * Define a new interface OnTaskComplete that triggers a Callback. Calls methods in the
+     * MainActivity named onTaskComplete and onPreTask
      *
      * Reference: @see "https://discussions.udacity.com/t/unable-to-start-activity-componentinfo-free-flavor/243702/10"
      * @see "https://discussions.udacity.com/t/waiting-for-the-task-to-get-the-joke-before-launching-android-library-activity-in-build-it-bigger/166488"
@@ -44,6 +45,10 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, List<String>> {
         void onPreTask();
     }
 
+    /**
+     * Constructor for EndpointsAsyncTask.
+     * @param callback The callback interface
+     */
     public EndpointsAsyncTask(OnTaskComplete callback) {
         mCallback = callback;
     }

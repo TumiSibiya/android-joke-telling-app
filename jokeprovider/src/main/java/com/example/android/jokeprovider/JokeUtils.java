@@ -3,6 +3,11 @@ package com.example.android.jokeprovider;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Define the jokes.
+ *
+ * Reference: @see "https://discussions.udacity.com/t/how-do-i-access-resource-file-from-my-java-library/188992"
+ */
 public class JokeUtils {
 
     private static final String CATEGORY_MATH = "math";

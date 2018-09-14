@@ -3,6 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- Common margin value used through out the app -->
     <dimen name="margin_activity">16dp</dimen>
     <dimen name="margin_activity_small">8dp</dimen>
+
 </resources>
