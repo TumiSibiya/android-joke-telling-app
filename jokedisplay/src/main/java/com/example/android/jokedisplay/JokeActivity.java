@@ -30,6 +30,8 @@ import static com.example.android.jokedisplay.JokeFragment.JOKE_INDEX;
 public class JokeActivity extends AppCompatActivity {
 
     public static final String JOKE_KEY = "Joke key";
+    /** Constant string for saving the current state of play/pause button */
+    private static final String JOKE_PLAY = "joke_play";
     /** Type of the share intent data */
     private static final String SHARE_INTENT_TYPE_TEXT = "text/plain";
     /** Unicode for Emoji used for sharing a joke */
@@ -60,10 +62,14 @@ public class JokeActivity extends AppCompatActivity {
         // Set up Timber
         Timber.plant(new Timber.DebugTree());
 
-        // Load the saved state (the list of jokes and joke index) if there is one
+        // Set the value of mIsPlaying to false not to switch the fragment automatically
+        mIsPlaying = false;
+
+        // Load the saved state (the list of jokes, joke index, and play/pause) if there is one
         if (savedInstanceState != null) {
             mJokes = savedInstanceState.getStringArrayList(JOKES);
             mJokeIndex = savedInstanceState.getInt(JOKE_INDEX);
+            mIsPlaying = savedInstanceState.getBoolean(JOKE_PLAY);
         }
 
         // Only create new fragments when there is no previously saved state
@@ -87,8 +93,8 @@ public class JokeActivity extends AppCompatActivity {
         // Show up button in the actionbar
         showUpButton();
 
-        // Set the value of mIsPlaying to false not to switch the fragment automatically
-        mIsPlaying = false;
+        // Create the Handler object
+        mHandler = new Handler();
     }
 
     /**
@@ -149,6 +155,14 @@ public class JokeActivity extends AppCompatActivity {
      * When the user clicks the next button, it navigates to the next joke page.
      */
     public void onNextButtonClick(View view) {
+        // Replace the old fragment with the next fragment
+        replaceWithNextFragment();
+    }
+
+    /**
+     * Replace the old fragment with the next fragment.
+     */
+    private void replaceWithNextFragment() {
         // Increment position as long as the index remains (the size of the joke list)
         if (mJokeIndex < mJokes.size() - 1) {
             mJokeIndex++;
@@ -173,7 +187,7 @@ public class JokeActivity extends AppCompatActivity {
             mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_play);
         } else {
             // Switch the fragment automatically
-            play(view);
+            play();
             // Set the image to 'pause' image
             mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_pause);
         }
@@ -188,13 +202,13 @@ public class JokeActivity extends AppCompatActivity {
      * @see "https://guides.codepath.com/android/Repeating-Periodic-Tasks#alarmmanager"
      * @see "https://stackoverflow.com/questions/39024588/android-postdelayed-handler-inside-a-for-loop"
      */
-    private void play(final View view) {
-        mHandler = new Handler();
+    private void play() {
         mRunnable = new Runnable() {
             @Override
             public void run() {
                 // After 10000 milliseconds in future, it navigates to the next joke page.
-                onNextButtonClick(view);
+                replaceWithNextFragment();
+
                 // Repeat this the same runnable code block again another 7 seconds
                 // 'this' is referencing the Runnable object
                 mHandler.postDelayed(this, DELAY_MILLIS);
@@ -233,16 +247,31 @@ public class JokeActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        // Store the list of jokes, joke index, and play/pause state to our bundle
         outState.putStringArrayList(JOKES, (ArrayList<String>) mJokes);
         outState.putInt(JOKE_INDEX, mJokeIndex);
+        outState.putBoolean(JOKE_PLAY, mIsPlaying);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mIsPlaying) {
+            // If mIsPlaying is true, switches the fragment automatically.
+            // Reference: @see "https://stackoverflow.com/questions/23538843/android-handler-and-runnable-nullpointer"
+            play();
+            // Set the image to 'pause' image
+            mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_pause);
+        }
     }
 
     /**
-     * Make sure remove any pending posts of Runnable in onPause().
+     * Make sure remove any pending posts of Runnable that are in the message queue.
+     * Reference: @see "https://stackoverflow.com/questions/23538843/android-handler-and-runnable-nullpointer"
      */
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         if (mIsPlaying) {
             pause();
         }
