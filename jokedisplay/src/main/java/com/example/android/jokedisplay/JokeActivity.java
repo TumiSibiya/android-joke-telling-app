@@ -35,6 +35,9 @@ public class JokeActivity extends AppCompatActivity {
     /** Unicode for Emoji used for sharing a joke */
     private static final int UNICODE_GRIN = 0x1F601;
     private static final int UNICODE_ROFL = 0x1F923;
+    /** Constant values used in a countdown timer */
+    private static final int MILLIS_IN_FUTURE = 10000;
+    private static final int COUNTDOWN_INTERVAL = 1000;
 
     /** Member variable for the list of jokes and list index */
     private List<String> mJokes;
@@ -185,7 +188,7 @@ public class JokeActivity extends AppCompatActivity {
      * Reference: @see "https://stackoverflow.com/questions/27692756/android-switch-fragments-automatically-after-time"
      */
     private void play(final View view) {
-        mCountDownTimer = new CountDownTimer(10000,1000) {
+        mCountDownTimer = new CountDownTimer(MILLIS_IN_FUTURE,COUNTDOWN_INTERVAL) {
             @Override
             public void onTick(long millisUntilFinished) {
             }

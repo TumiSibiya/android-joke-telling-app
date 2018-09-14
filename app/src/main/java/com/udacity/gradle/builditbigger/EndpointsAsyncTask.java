@@ -72,7 +72,7 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, List<String>> {
                     // options for running against local dev app server
                     // - 10.0.2.2 is localhost's IP address in Android emulator
                     // - turn off compression when running against local dev app server
-                    .setRootUrl("http://192.168.0.19:8080/_ah/api/")
+                    .setRootUrl(Constants.ROOT_URL)
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> request) throws IOException {
@@ -110,7 +110,8 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, List<String>> {
     @Override
     protected void onCancelled() {
         if (mListener != null) {
-            mException = new InterruptedException("AsyncTask cancelled");
+            // Constructs an InterruptedException with the "AsyncTask cancelled" message.
+            mException = new InterruptedException(Constants.EXCEPTION_MESSAGE);
             mListener.onComplete(null, mException);
         }
     }
