@@ -23,4 +23,8 @@
     <dimen name="margin_activity">16dp</dimen>
     <dimen name="margin_activity_small">8dp</dimen>
 
+    <dimen name="margin_card">4dp</dimen>
+    <dimen name="radius_card">3dp</dimen>
+    <dimen name="size_category_image">80dp</dimen>
+
 </resources>

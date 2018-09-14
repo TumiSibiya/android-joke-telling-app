@@ -33,7 +33,7 @@
                 android:id="@+id/tv_joke"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/margin_activity"
                 android:fontFamily="@font/noto_sans_regular"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/color_text"
