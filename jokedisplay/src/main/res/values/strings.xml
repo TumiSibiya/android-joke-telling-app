@@ -26,4 +26,7 @@
     <string name="action_share">share</string>
     <string name="share_title">Share a joke</string>
     <string name="space">\u0020</string>
+
+    <!-- Toast message -->
+    <string name="toast_backend_offline">The backend is offline</string>
 </resources>

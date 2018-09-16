@@ -29,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.android.jokedisplay.databinding.ActivityJokeBinding;
 
@@ -145,8 +146,8 @@ public class JokeActivity extends AppCompatActivity {
             finish();
             return true;
         } else if (itemId == R.id.action_share) {
-            // Share a joke using share intent
-            startActivity(createShareIntent());
+            // If a list of joke exists, share a joke using intent. Otherwise, show a toast message.
+            shareJoke();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -160,8 +161,15 @@ public class JokeActivity extends AppCompatActivity {
         if (mJokeIndex > 0) {
             mJokeIndex--;
         } else {
-            // The start of joke list has been reached, so return to ending index
-            mJokeIndex = mJokes.size() - 1;
+            // Check if a list of jokes exists before trying to use mJoke.size()
+            if (mJokes != null) {
+                // The start of joke list has been reached, so return to ending index
+                mJokeIndex = mJokes.size() - 1;
+            } else {
+                // If a list of jokes is null, show a toast message.
+                Toast.makeText(this, getString(R.string.toast_backend_offline),
+                        Toast.LENGTH_SHORT).show();
+            }
         }
         // Give the correct joke index to the new fragment and replace the old fragment with a new one
         replaceFragment();
@@ -179,15 +187,22 @@ public class JokeActivity extends AppCompatActivity {
      * Replace the old fragment with the next fragment.
      */
     private void replaceWithNextFragment() {
-        // Increment position as long as the index remains (the size of the joke list)
-        if (mJokeIndex < mJokes.size() - 1) {
-            mJokeIndex++;
+        // Check if a list of jokes exists before trying to use mJoke.size()
+        if (mJokes != null) {
+            // Increment position as long as the index remains (the size of the joke list)
+            if (mJokeIndex < mJokes.size() - 1) {
+                mJokeIndex++;
+            } else {
+                // The end of joke list has been reached, so return to beginning index
+                mJokeIndex = 0;
+            }
+            // Give the correct joke index to the new fragment and replace the old fragment with a new one
+            replaceFragment();
         } else {
-            // The end of joke list has been reached, so return to beginning index
-            mJokeIndex = 0;
+            // If a list of jokes is null, show a toast message.
+            Toast.makeText(this, getString(R.string.toast_backend_offline),
+                    Toast.LENGTH_SHORT).show();
         }
-        // Give the correct joke index to the new fragment and replace the old fragment with a new one
-        replaceFragment();
     }
 
     /**
@@ -196,17 +211,24 @@ public class JokeActivity extends AppCompatActivity {
      * Reference: @see "https://stackoverflow.com/questions/18120174/how-to-play-and-pause-in-only-one-button-android"
      */
     public void onPlayButtonClick(View view) {
-        if (mIsPlaying) {
-            // Remove the scheduled execution of a runnable
-            pause();
-            // Set the image to 'play' image
-            mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_play);
+        // Check if a list of jokes exists
+        if (mJokes != null) {
+            if (mIsPlaying) {
+                // Remove the scheduled execution of a runnable
+                pause();
+                // Set the image to 'play' image
+                mJokeBinding.navigationPlay.setImageResource(R.drawable.ic_play);
+            } else {
+                // Switch the fragment automatically and change play image to pause image
+                play();
+            }
+            // Reverse the value of a boolean
+            mIsPlaying = !mIsPlaying;
         } else {
-            // Switch the fragment automatically and change play image to pause image
-            play();
+            // If a list of jokes is null, show a toast message.
+            Toast.makeText(this, getString(R.string.toast_backend_offline),
+                    Toast.LENGTH_SHORT).show();
         }
-        // Reverse the value of a boolean
-        mIsPlaying = !mIsPlaying;
     }
 
     /**
@@ -300,8 +322,22 @@ public class JokeActivity extends AppCompatActivity {
     }
 
     /**
+     * If a list of joke exists, share a joke using intent. Otherwise, show a toast message.
+     */
+    private void shareJoke() {
+        if (mJokes != null) {
+            // Share a joke using share intent
+            startActivity(createShareIntent());
+        } else {
+            Toast.makeText(this, getString(R.string.toast_backend_offline),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
      * Uses the ShareCompat Intent builder to create our share intent for sharing.
-     * Return the newly created intent.
+     * Return the newly created intent. Before using this method, we should check if a list of jokes
+     * exists.
      */
     private Intent createShareIntent() {
         // Text message to share
