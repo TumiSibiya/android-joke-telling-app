@@ -20,4 +20,5 @@
     <dimen name="margin_activity_small">8dp</dimen>
     <dimen name="height_divider">0.3dp</dimen>
     <dimen name="margin_activity">16dp</dimen>
+    <dimen name="size_offline_image">80dp</dimen>
 </resources>

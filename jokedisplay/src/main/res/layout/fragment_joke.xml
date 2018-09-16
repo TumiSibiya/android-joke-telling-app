@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 Soojeong Shin
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,20 +27,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Display a joke -->
-            <TextView
-                android:id="@+id/tv_joke"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_activity"
-                android:fontFamily="@font/noto_sans_regular"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/color_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="This is a joke from a joke provider" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Display a joke -->
+                <TextView
+                    android:id="@+id/tv_joke"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_activity"
+                    android:fontFamily="@font/noto_sans_regular"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/color_text"
+                    tools:text="This is a joke from a joke provider" />
+
+                <!-- Only visible if a list of joke is null -->
+                <ImageView
+                    android:id="@+id/iv_empty"
+                    android:layout_width="@dimen/size_offline_image"
+                    android:layout_height="@dimen/size_offline_image"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/empty_content_description"
+                    android:paddingTop="@dimen/margin_activity"
+                    android:src="@drawable/cloud_off"
+                    android:tint="@android:color/darker_gray"
+                    android:visibility="invisible" />
+
+            </FrameLayout>
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

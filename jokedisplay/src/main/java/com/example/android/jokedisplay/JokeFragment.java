@@ -71,13 +71,17 @@ public class JokeFragment extends Fragment {
         // Inflate the Joke fragment layout
         View rootView = mFragmentJokeBinding.getRoot();
 
-        // If a list of jokes exists, set the joke string
-        // Otherwise, create a Log statement that indicates that the list was not found
+        // If a list of jokes exists, set the joke string.
+        // Otherwise, create a Log statement that indicates that the list was not found and
+        // display the image that indicates that the backend is offline.
         if (mJokes != null) {
+            // Make sure the View for a joke visible
+            showJokes();
             // Set the joke to the TextView
             mFragmentJokeBinding.tvJoke.setText(mJokes.get(mJokeIndex));
         } else {
             Timber.v("This fragment has a null list of jokes");
+            showOffline();
         }
         return rootView;
     }
@@ -103,5 +107,21 @@ public class JokeFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putStringArrayList(JOKES, (ArrayList<String>) mJokes);
         outState.putInt(JOKE_INDEX, mJokeIndex);
+    }
+
+    /**
+     * This method will make the View for the joke data visible and hide the empty ImageView.
+     */
+    private void showJokes() {
+        mFragmentJokeBinding.ivEmpty.setVisibility(View.GONE);
+        mFragmentJokeBinding.tvJoke.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * This method will make the empty ImageView visible and hide the joke string.
+     */
+    private void showOffline() {
+        mFragmentJokeBinding.tvJoke.setVisibility(View.GONE);
+        mFragmentJokeBinding.ivEmpty.setVisibility(View.VISIBLE);
     }
 }
