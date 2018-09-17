@@ -46,6 +46,7 @@ import static com.example.android.jokedisplay.JokeFragment.JOKE_INDEX;
  */
 public class JokeActivity extends AppCompatActivity {
 
+    /** Constant value for the key of an intent extra */
     public static final String JOKE_KEY = "Joke key";
     /** Constant string for saving the current state of play/pause button */
     private static final String JOKE_PLAY = "joke_play";
@@ -245,7 +246,7 @@ public class JokeActivity extends AppCompatActivity {
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                // After 10000 milliseconds in future, it navigates to the next joke page.
+                // After 7000 milliseconds in future, it navigates to the next joke page.
                 replaceWithNextFragment();
 
                 // Repeat this the same runnable code block again another 7 seconds
