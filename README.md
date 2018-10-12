@@ -187,3 +187,10 @@ made by [Freepik](http://www.freepik.com) from [www.flaticon.com](www.flaticon.c
 [Wink](https://www.flaticon.com/free-icon/wink_136271)
 made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [www.flaticon.com](www.flaticon.com) is licensed by
 [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+
+## Screenshots
+![joke_01_main](https://user-images.githubusercontent.com/33213229/46856482-8850e880-ce41-11e8-8a58-ffe6b9122f0c.png)
+![joke_02_ad](https://user-images.githubusercontent.com/33213229/46856488-8b4bd900-ce41-11e8-92d7-3ae17dcb3da8.png)
+![joke_03_marriage](https://user-images.githubusercontent.com/33213229/46856492-8c7d0600-ce41-11e8-8dd9-66bff179f302.png)
+![joke_04_main_paid](https://user-images.githubusercontent.com/33213229/46856493-8dae3300-ce41-11e8-8545-3769fa85e6cd.png)
+![joke_05_family](https://user-images.githubusercontent.com/33213229/46856496-90108d00-ce41-11e8-90ca-963a4e585549.png)
