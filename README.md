@@ -1,5 +1,7 @@
 # Gradle for Android and Java Final Project
 
+![ic_launcher](https://user-images.githubusercontent.com/33213229/49942719-75ce5a80-ff29-11e8-926b-eb5cd6d08b43.png)
+
 In this project, you will create an app with multiple flavors that uses
 multiple libraries and Google Cloud Endpoints. The finished app will consist
 of four modules. A Java library that provides jokes, a Google Cloud Endpoints
@@ -25,6 +27,37 @@ Gradle to manage apps of increasing complexity. You'll learn to:
 * Configure a multi project build to compile your libraries and app
 * Use the Gradle App Engine plugin to deploy a backend
 * Configure an integration test suite that runs against the local App Engine development server
+
+## Video
+I've created a video demonstrating the app. Click [here](https://youtu.be/nztzryhbxxg) to view the video.
+
+## Screenshots
+![joke_01_main](https://user-images.githubusercontent.com/33213229/46856482-8850e880-ce41-11e8-8a58-ffe6b9122f0c.png)
+![joke_02_ad](https://user-images.githubusercontent.com/33213229/46856488-8b4bd900-ce41-11e8-92d7-3ae17dcb3da8.png)
+![joke_03_marriage](https://user-images.githubusercontent.com/33213229/46856492-8c7d0600-ce41-11e8-8dd9-66bff179f302.png)
+![joke_04_main_paid](https://user-images.githubusercontent.com/33213229/46856493-8dae3300-ce41-11e8-8545-3769fa85e6cd.png)
+![joke_05_family](https://user-images.githubusercontent.com/33213229/46856496-90108d00-ce41-11e8-90ca-963a4e585549.png)
+
+## Image Resources
+
+[Math](https://www.flaticon.com/free-icon/maths_746961)
+made by [Prosymbols](https://www.flaticon.com/authors/prosymbols) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+[Dog](https://www.flaticon.com/free-icon/dog_141820)
+made by [Freepik](http://www.freepik.com) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+[Couple](https://www.flaticon.com/free-icon/couple_332901)
+made by [Freepik](http://www.freepik.com) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+[Development](https://www.flaticon.com/free-icon/development_762719)
+made by [Prosymbols](https://www.flaticon.com/authors/prosymbols) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+[Family](https://www.flaticon.com/free-icon/family_437553)
+made by [Freepik](http://www.freepik.com) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+[Wink](https://www.flaticon.com/free-icon/wink_136271)
+made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [www.flaticon.com](www.flaticon.com) is licensed by
+[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
 
 ## How Do I Complete this Project?
 
@@ -166,31 +199,3 @@ Once you have a functioning project, consider adding more features to test your 
 * Make the free app variant display interstitial ads between the main activity and the joke-displaying activity.
 * Have the app display a loading indicator while the joke is being fetched from the server.
 * Write a Gradle task that starts the GCE dev server, runs all the Android tests, and shuts down the dev server.
-
-## Image Resources
-
-[Math](https://www.flaticon.com/free-icon/maths_746961)
-made by [Prosymbols](https://www.flaticon.com/authors/prosymbols) from [www.flaticon.com](www.flaticon.com) is licensed by
-[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
-[Dog](https://www.flaticon.com/free-icon/dog_141820)
-made by [Freepik](http://www.freepik.com) from [www.flaticon.com](www.flaticon.com) is licensed by
-[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
-[Couple](https://www.flaticon.com/free-icon/couple_332901)
-made by [Freepik](http://www.freepik.com) from [www.flaticon.com](www.flaticon.com) is licensed by
-[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
-[Development](https://www.flaticon.com/free-icon/development_762719)
-made by [Prosymbols](https://www.flaticon.com/authors/prosymbols) from [www.flaticon.com](www.flaticon.com) is licensed by
-[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
-[Family](https://www.flaticon.com/free-icon/family_437553)
-made by [Freepik](http://www.freepik.com) from [www.flaticon.com](www.flaticon.com) is licensed by
-[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
-[Wink](https://www.flaticon.com/free-icon/wink_136271)
-made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [www.flaticon.com](www.flaticon.com) is licensed by
-[CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
-
-## Screenshots
-![joke_01_main](https://user-images.githubusercontent.com/33213229/46856482-8850e880-ce41-11e8-8a58-ffe6b9122f0c.png)
-![joke_02_ad](https://user-images.githubusercontent.com/33213229/46856488-8b4bd900-ce41-11e8-92d7-3ae17dcb3da8.png)
-![joke_03_marriage](https://user-images.githubusercontent.com/33213229/46856492-8c7d0600-ce41-11e8-8dd9-66bff179f302.png)
-![joke_04_main_paid](https://user-images.githubusercontent.com/33213229/46856493-8dae3300-ce41-11e8-8545-3769fa85e6cd.png)
-![joke_05_family](https://user-images.githubusercontent.com/33213229/46856496-90108d00-ce41-11e8-90ca-963a4e585549.png)
