@@ -59,6 +59,9 @@ made by [Freepik](http://www.freepik.com) from [www.flaticon.com](www.flaticon.c
 made by [Smashicons](https://www.flaticon.com/authors/smashicons) from [www.flaticon.com](www.flaticon.com) is licensed by
 [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
 
+## Library
+- [Timber](https://github.com/JakeWharton/timber)
+
 ## How Do I Complete this Project?
 
 ### Step 0: Starting Point
@@ -199,3 +202,6 @@ Once you have a functioning project, consider adding more features to test your 
 * Make the free app variant display interstitial ads between the main activity and the joke-displaying activity.
 * Have the app display a loading indicator while the joke is being fetched from the server.
 * Write a Gradle task that starts the GCE dev server, runs all the Android tests, and shuts down the dev server.
+
+## License
+Apache, see the [LICENSE](LICENSE) file.
