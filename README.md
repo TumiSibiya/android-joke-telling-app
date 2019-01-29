@@ -28,6 +28,9 @@ Gradle to manage apps of increasing complexity. You'll learn to:
 * Use the Gradle App Engine plugin to deploy a backend
 * Configure an integration test suite that runs against the local App Engine development server
 
+## Video
+I've created a video demonstrating the app. Click [here](https://youtu.be/nztzryhbxxg) to view the video on YouTube.
+
 ## Screenshots
 ![joke_01_main](https://user-images.githubusercontent.com/33213229/46856482-8850e880-ce41-11e8-8a58-ffe6b9122f0c.png)
 ![joke_02_ad](https://user-images.githubusercontent.com/33213229/46856488-8b4bd900-ce41-11e8-92d7-3ae17dcb3da8.png)
